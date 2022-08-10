@@ -1,26 +1,56 @@
 import { Request, Response } from 'express';
 import Usuario from './usuario.model';
+import { BaseResponse } from '../../interfaces/BaseResponse';
+import Rol from '../rol/rol.model';
 
-//TODO: Basic response
+const response: BaseResponse = {};
+
+//GET
 export async function get(_: Request, res: Response): Promise<Response> {
     const usuarios: Usuario[] = await Usuario.findAll();
 
-    return res.status(200).send(usuarios);
+    response.status = 1;
+    response.message = "Mostrando usuarios";
+    response.data = usuarios;
+
+    return res.status(200).send(response);
 }
 
+//GET: ID
 export async function getById(req: Request, res: Response): Promise<Response> {
     const { id } = req.params;
-    const usuario: Usuario | null = await Usuario.findByPk(id);
+    const usuario: Usuario | null = await Usuario.findByPk(id, { include: Rol });
 
-    return res.status(200).send(usuario);
+    if (!usuario) {
+        response.status = 0;
+        response.message = "Usuario no encontrado.";
+        response.data = usuario;
+
+        return res.status(404).send(response);
+    } else {
+        response.status = 1;
+        response.message = "Usuario encontrado.";
+        response.data = usuario;
+
+        return res.status(200).send(response);
+    }
 }
 
 export async function post(req: Request, res: Response): Promise<Response> {
     try {
         const usuario: Usuario = await Usuario.create({ ...req.body });
-        return res.status(200).send(usuario);
-    } catch (error) {
-        return res.status(500).send(error);
+
+        response.status = 1;
+        response.message = "Usuario creado.";
+        response.data = usuario;
+
+        return res.status(200).send(response);
+    } catch (error: any) {
+        response.status = 0;
+        response.message = "Ocurrió un error.";
+        response.data = error;
+
+        return res.status(500).send(response);
     }
 }
 
@@ -30,8 +60,16 @@ export async function put(req: Request, res: Response): Promise<Response> {
         await Usuario.update({ ...req.body }, { where: { id } });
         const updatedUsuario: Usuario | null = await Usuario.findByPk(id);
 
-        return res.status(200).send(updatedUsuario);
-    } catch (error) {
+        response.status = 1;
+        response.message = "Usuario modificado.";
+        response.data = updatedUsuario;
+
+        return res.status(200).send(response);
+    } catch (error: any) {
+        response.status = 0;
+        response.message = "Ocurrió un error.";
+        response.data = error;
+
         return res.status(500).send(error);
     }
 }
@@ -42,9 +80,18 @@ export async function del(req: Request, res: Response): Promise<Response> {
     const usuario: Usuario | null = await Usuario.findByPk(id);
 
     if (!usuario) {
-        return res.status(404);
+        response.status = 0;
+        response.message = "Usuario no encontrado.";
+        response.data = usuario;
+
+        return res.status(404).send(response);
     } else {
         await Usuario.destroy({ where: { id } });
-        return res.status(200).send(usuario);
+
+        response.status = 1;
+        response.message = "Usuario eliminado.";
+        response.data = usuario;
+
+        return res.status(200).send(response);
     }
 }

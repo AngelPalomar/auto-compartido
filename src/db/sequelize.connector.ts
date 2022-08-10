@@ -7,7 +7,8 @@ import {
 const sequelize = new Sequelize(MY_SQL_DB_DATABASE, MY_SQL_DB_USER, MY_SQL_DB_PASSWORD, {
     host: MY_SQL_DB_HOST,
     port: MY_SQL_DB_PORT,
-    dialect: 'mysql'
+    dialect: 'mysql',
+    logging: true
 });
 
 export default sequelize;

@@ -1,5 +1,5 @@
 import { DataTypes, Model } from 'sequelize';
-import sequelize from '../../utils/sequelize.connector';
+import sequelize from '../../db/sequelize.connector';
 
 class Usuario extends Model { }
 
@@ -47,7 +47,6 @@ Usuario.init({
     modelName: 'Usuario',
     timestamps: false
 });
-
 
 export default Usuario;
 

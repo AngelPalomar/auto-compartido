@@ -1,5 +1,5 @@
 import express from 'express';
-import sequelize from './utils/sequelize.connector';
+import sequelize from './db/sequelize.connector';
 import UsuarioRoutes from './modules/usuario/usuario.routes';
 
 const app = express();
@@ -8,7 +8,7 @@ const PORT = 3977;
 //Connection MySQL
 try {
     sequelize.authenticate();
-    sequelize.sync();
+    sequelize.sync({ force: false });
     console.debug("Sequelize MySQL Connection has been established successfully.");
 
     //JSON config

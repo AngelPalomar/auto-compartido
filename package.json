@@ -1,0 +1,24 @@
+{
+  "name": "auto-compartido",
+  "version": "1.0.0",
+  "description": "Backend para la aplicación de auto compartido UTEQ",
+  "main": "index.js",
+  "scripts": {
+    "dev": "ts-node-dev src/index.ts",
+    "start": "tsc && node build/index.js"
+  },
+  "author": "Angel Palomar (2019371053)",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/express": "^4.17.13",
+    "@types/mysql": "^2.15.21",
+    "ts-node-dev": "^2.0.0",
+    "tslint": "^6.1.3",
+    "typescript": "^4.7.4"
+  },
+  "dependencies": {
+    "bcrypt-nodejs": "^0.0.3",
+    "express": "^4.18.1",
+    "mysql": "^2.18.1"
+  }
+}

@@ -1,17 +1,27 @@
 import express from 'express';
-import * as MySQLConnector from './utils/mysql.connector';
+import mysql from './utils/mysql.connector';
+import UsuarioRoutes from './modules/usuario/usuario.routes';
 
 const app = express();
 const PORT = 3977;
 
-MySQLConnector.init();
+//Connection MySQL
+try {
+    mysql.authenticate();
+    mysql.sync();
+    console.debug("MySQL Connection has been established successfully.");
 
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
+    //JSON config
+    app.use(express.urlencoded({ extended: false }));
+    app.use(express.json());
 
-//Routes
+    //Routes
+    app.use(`/api`, UsuarioRoutes);
 
+    app.listen(PORT, () => {
+        console.log(`Auto Compartido REST API Listening at http://localhost:${PORT}`);
+    })
 
-app.listen(PORT, () => {
-    console.log(`Auto Compartido REST API Listening at http://localhost:${PORT}`);
-})
+} catch (error) {
+    console.error("Unable to connect to the database: ", error);
+}

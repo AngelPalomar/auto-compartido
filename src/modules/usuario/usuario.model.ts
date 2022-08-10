@@ -1,5 +1,5 @@
 import { DataTypes, Model } from 'sequelize';
-import sequelize from '../../utils/mysql.connector';
+import sequelize from '../../utils/sequelize.connector';
 
 class Usuario extends Model { }
 

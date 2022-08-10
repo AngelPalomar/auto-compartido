@@ -1,5 +1,5 @@
 import express from 'express';
-import mysql from './utils/mysql.connector';
+import sequelize from './utils/sequelize.connector';
 import UsuarioRoutes from './modules/usuario/usuario.routes';
 
 const app = express();
@@ -7,9 +7,9 @@ const PORT = 3977;
 
 //Connection MySQL
 try {
-    mysql.authenticate();
-    mysql.sync();
-    console.debug("MySQL Connection has been established successfully.");
+    sequelize.authenticate();
+    sequelize.sync();
+    console.debug("Sequelize MySQL Connection has been established successfully.");
 
     //JSON config
     app.use(express.urlencoded({ extended: false }));

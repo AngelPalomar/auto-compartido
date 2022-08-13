@@ -10,7 +10,7 @@ Rol.init({
         primaryKey: true,
     },
     nombre: {
-        type: DataTypes.ENUM('conductor', 'admin')
+        type: DataTypes.ENUM('conductor', 'pasajero', 'admin')
     }
 }, {
     sequelize: sequelize,

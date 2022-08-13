@@ -1,6 +1,9 @@
 import express from 'express';
 import sequelize from './db/sequelize.connector';
 import UsuarioRoutes from './modules/usuario/usuario.routes';
+import VehiculoRoutes from './modules/vehiculo/vehiculo.routes';
+import RutaRoutes from './modules/ruta/ruta.routes';
+import PuntoRoutes from './modules/punto/punto.routes';
 
 const app = express();
 const PORT = 3977;
@@ -17,6 +20,9 @@ try {
 
     //Routes
     app.use(`/api`, UsuarioRoutes);
+    app.use(`/api`, VehiculoRoutes);
+    app.use(`/api`, RutaRoutes);
+    app.use(`/api`, PuntoRoutes);
 
     app.listen(PORT, () => {
         console.log(`Auto Compartido REST API Listening at http://localhost:${PORT}`);

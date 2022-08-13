@@ -1,5 +1,7 @@
 import { DataTypes, Model } from 'sequelize';
 import sequelize from '../../db/sequelize.connector';
+import Ruta from '../ruta/ruta.model';
+import Vehiculo from '../vehiculo/vehiculo.model';
 
 class Usuario extends Model { }
 
@@ -47,6 +49,12 @@ Usuario.init({
     modelName: 'Usuario',
     timestamps: false
 });
+
+Usuario.hasOne(Vehiculo, { foreignKey: 'idUsuario' });
+Vehiculo.belongsTo(Usuario, { foreignKey: 'idUsuario' });
+
+Usuario.hasMany(Ruta, { foreignKey: 'idUsuario' });
+Ruta.belongsToMany(Usuario, { through: 'ruta' });
 
 export default Usuario;
 

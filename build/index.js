@@ -4,14 +4,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const sequelize_connector_1 = __importDefault(require("./utils/sequelize.connector"));
+const sequelize_connector_1 = __importDefault(require("./db/sequelize.connector"));
 const usuario_routes_1 = __importDefault(require("./modules/usuario/usuario.routes"));
 const app = (0, express_1.default)();
 const PORT = 3977;
 //Connection MySQL
 try {
     sequelize_connector_1.default.authenticate();
-    sequelize_connector_1.default.sync();
+    sequelize_connector_1.default.sync({ force: false });
     console.debug("Sequelize MySQL Connection has been established successfully.");
     //JSON config
     app.use(express_1.default.urlencoded({ extended: false }));

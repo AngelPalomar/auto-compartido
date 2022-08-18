@@ -4,13 +4,14 @@ import Usuario from './usuario.model';
 import Rol from '../rol/rol.model';
 import Vehiculo from '../vehiculo/vehiculo.model';
 import Ruta from '../ruta/ruta.model';
+import Pasajero from '../pasajero/pasajero.model';
 
 const response: BaseResponse = {};
 
 //GET
 export async function get(req: Request, res: Response): Promise<Response> {
     const query = req.query;
-    const usuarios: Usuario[] | null = await Usuario.findAll({ where: query, include: [Vehiculo, Ruta] });
+    const usuarios: Usuario[] | null = await Usuario.findAll({ where: query, include: [Vehiculo, Ruta, Pasajero] });
 
     response.status = 1;
     response.message = "Mostrando usuarios.";

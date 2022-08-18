@@ -1,5 +1,6 @@
 import { DataTypes, Model } from 'sequelize';
 import sequelize from '../../db/sequelize.connector';
+import Pasajero from '../pasajero/pasajero.model';
 import Ruta from '../ruta/ruta.model';
 import Vehiculo from '../vehiculo/vehiculo.model';
 
@@ -55,6 +56,9 @@ Vehiculo.belongsTo(Usuario, { foreignKey: 'idUsuario' });
 
 Usuario.hasMany(Ruta, { foreignKey: 'idUsuario' });
 Ruta.belongsToMany(Usuario, { through: 'ruta' });
+
+Usuario.hasMany(Pasajero, { foreignKey: 'idUsuarioConductor' });
+Pasajero.belongsTo(Usuario, { foreignKey: 'idUsuarioConductor' });
 
 export default Usuario;
 
